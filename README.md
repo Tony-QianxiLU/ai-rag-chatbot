@@ -8,6 +8,10 @@ A document-based chatbot that will use embeddings, vector search, and LLM respon
 
 This repository is part of my AI engineering portfolio. The goal is to build the project incrementally, with clear documentation, professional Git workflow, and code that I can explain in interviews.
 
+## Live Demo
+
+[Open the deployed Streamlit app](https://ry84fwqnk4abfhufqkhrmz.streamlit.app/)
+
 ## Screenshot
 
 ![AI RAG Chatbot Streamlit UI](docs/assets/streamlit-home.png)
@@ -143,7 +147,7 @@ Never commit real API keys.
 - [x] Add evaluation examples
 - [x] Add CI workflow
 - [x] Add deployment notes
-- [ ] Deploy public demo
+- [x] Deploy public demo
 
 ## Interview Talking Points
 
