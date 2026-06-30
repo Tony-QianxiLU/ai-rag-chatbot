@@ -9,6 +9,7 @@ dependencies = [
     "langchain>=1.0.0",
     "langchain-openai>=1.0.0",
     "pydantic-settings>=2.12.0",
+    "pypdf>=6.0.0",
     "python-dotenv>=1.2.0",
     "streamlit>=1.52.0",
 ]
@@ -26,4 +27,3 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-

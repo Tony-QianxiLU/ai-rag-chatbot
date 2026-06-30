@@ -6,14 +6,16 @@ This repository is part of my AI engineering portfolio. The goal is to build the
 
 ## Current Status
 
-Phase 1: project skeleton and local Streamlit prototype.
+Phase 2: document upload and text extraction.
 
-The first version focuses on:
+The current version focuses on:
 
 - Clean Python project structure
 - Reproducible environment with `uv`
 - Streamlit user interface
 - RAG pipeline interfaces
+- `.txt` and `.pdf` upload support
+- Text extraction and document preview
 - Tests for core project behavior
 - Clear roadmap toward production-quality RAG
 
@@ -106,7 +108,7 @@ Never commit real API keys.
 - [x] Create professional project skeleton
 - [x] Add Streamlit prototype UI
 - [x] Add testable RAG pipeline placeholder
-- [ ] Add document upload and parsing
+- [x] Add document upload and parsing
 - [ ] Add text chunking
 - [ ] Add embeddings
 - [ ] Add Chroma vector storage
@@ -124,4 +126,3 @@ This project is designed to demonstrate:
 - Practical use of LLM APIs and vector databases
 - Awareness of environment variables and secret management
 - Clear documentation and incremental delivery
-

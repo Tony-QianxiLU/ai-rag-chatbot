@@ -4,13 +4,16 @@
 
 The goal of this project is to build a document-based chatbot that can answer questions using retrieved context from uploaded documents.
 
-## Phase 1
+## Current Phase
 
-The current phase creates a clean local application skeleton:
+The current phase adds document upload and text extraction:
 
 - Streamlit UI
 - RAG pipeline interface
 - Settings management
+- `.txt` text extraction
+- `.pdf` text extraction
+- Document preview
 - Tests
 - Documentation
 
@@ -24,4 +27,3 @@ The current phase creates a clean local application skeleton:
 6. Retrieve relevant chunks for a user question.
 7. Generate an answer with an OpenAI model.
 8. Return answer and source references.
-
