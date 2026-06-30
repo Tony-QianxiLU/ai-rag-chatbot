@@ -94,6 +94,7 @@ ai-rag-chatbot/
 |-- docs/
 |   |-- demo/
 |   |-- images/
+|   |-- video/
 |   |-- architecture.md
 |   |-- deployment.md
 |   |-- evaluation.md
@@ -191,6 +192,10 @@ Fallback screenshot:
 ## Demo GIF
 
 ![AI RAG Chatbot demo](docs/demo/rag-chatbot-demo.gif)
+
+## Walkthrough Video
+
+[Watch the 63-second project walkthrough](docs/video/rag-chatbot-walkthrough.mp4)
 
 ## Usage
 

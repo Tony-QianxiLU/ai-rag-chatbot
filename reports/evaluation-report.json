@@ -6,7 +6,7 @@
     "citation_coverage": 1.0,
     "groundedness_rate": 1.0,
     "overall_pass_rate": 1.0,
-    "average_latency_ms": 0.037823047023266554
+    "average_latency_ms": 0.03672926686704159
   },
   "results": [
     {
@@ -18,7 +18,7 @@
         "evaluation-quality.txt"
       ],
       "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: How does retrieval augmented generation ground answers?\n\nTop context: Retrieval augmented generation combines search with language generation. The system chunks source documents, retrieves relevant context for a question, and uses that context to ground the answer with citations.",
-      "latency_ms": 0.05604187026619911,
+      "latency_ms": 0.054416945204138756,
       "retrieval_passed": true,
       "citation_passed": true,
       "groundedness_passed": true,
@@ -34,7 +34,7 @@
         "deployment-ops.txt"
       ],
       "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: What should a transparent AI agent show?\n\nTop context: AI agents use planning, tools, and execution traces to complete structured tasks. A transparent agent should show its plan, tool calls, tool results, and memory.",
-      "latency_ms": 0.035708071663975716,
+      "latency_ms": 0.034833094105124474,
       "retrieval_passed": true,
       "citation_passed": true,
       "groundedness_passed": true,
@@ -50,7 +50,7 @@
         "rag-architecture.txt"
       ],
       "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: What does a production AI app need before deployment?\n\nTop context: Production AI applications need deployment documentation, environment variables, CI checks, release notes, and rollback-friendly workflows.",
-      "latency_ms": 0.03095809370279312,
+      "latency_ms": 0.02987496554851532,
       "retrieval_passed": true,
       "citation_passed": true,
       "groundedness_passed": true,
@@ -66,7 +66,7 @@
         "agent-design.txt"
       ],
       "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: Which metrics help evaluate a RAG system?\n\nTop context: RAG evaluation tracks retrieval accuracy, citation coverage, groundedness, and latency. These metrics help teams detect regressions when prompts or models change.",
-      "latency_ms": 0.028584152460098267,
+      "latency_ms": 0.027792062610387802,
       "retrieval_passed": true,
       "citation_passed": true,
       "groundedness_passed": true,
