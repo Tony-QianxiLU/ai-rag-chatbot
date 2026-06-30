@@ -109,6 +109,10 @@ Run tests:
 uv run pytest
 ```
 
+## Demo Walkthrough
+
+See [docs/walkthrough.md](docs/walkthrough.md) for a suggested interview demo script.
+
 ## Environment Variables
 
 Create a local `.env` file from `.env.example`:
