@@ -26,6 +26,8 @@ The current version focuses on:
 - Optional OpenAI answer generation
 - Source citations with chunk id, score, and preview
 - Retrieval evaluation helpers
+- GitHub Actions CI
+- Deployment notes
 - Tests for core project behavior
 - Clear roadmap toward production-quality RAG
 
@@ -127,7 +129,9 @@ Never commit real API keys.
 - [x] Add optional OpenAI response generation
 - [x] Add source citations
 - [x] Add evaluation examples
-- [ ] Add deployment
+- [x] Add CI workflow
+- [x] Add deployment notes
+- [ ] Deploy public demo
 
 ## Interview Talking Points
 
