@@ -25,6 +25,7 @@ The current version focuses on:
 - Offline template answers when no API key is configured
 - Optional OpenAI answer generation
 - Source citations with chunk id, score, and preview
+- Retrieval evaluation helpers
 - Tests for core project behavior
 - Clear roadmap toward production-quality RAG
 
@@ -125,7 +126,7 @@ Never commit real API keys.
 - [x] Add answer generation interface
 - [x] Add optional OpenAI response generation
 - [x] Add source citations
-- [ ] Add evaluation examples
+- [x] Add evaluation examples
 - [ ] Add deployment
 
 ## Interview Talking Points
