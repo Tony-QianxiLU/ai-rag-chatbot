@@ -29,6 +29,7 @@ This project is part of my AI engineering portfolio. It is designed to demonstra
 - Evaluate RAG quality with a benchmark dataset, generated reports, and CI checks.
 - Run quality checks with Ruff, pytest, and GitHub Actions.
 - Deploy publicly on Streamlit Community Cloud.
+- Retrieve context with an alternative LlamaIndex-backed pipeline over the same Chroma database, for framework comparison. See [docs/llamaindex-comparison.md](docs/llamaindex-comparison.md).
 
 ## Architecture
 
@@ -74,6 +75,7 @@ Answer
 - Streamlit
 - LangChain
 - LangChain OpenAI
+- LlamaIndex
 - Chroma
 - pypdf
 - pydantic-settings
@@ -98,6 +100,7 @@ ai-rag-chatbot/
 |   |-- architecture.md
 |   |-- deployment.md
 |   |-- evaluation.md
+|   |-- llamaindex-comparison.md
 |   `-- walkthrough.md
 |-- src/
 |   `-- ai_rag_chatbot/
@@ -110,6 +113,7 @@ ai-rag-chatbot/
 |       |-- evaluate.py
 |       |-- evaluation.py
 |       |-- generation.py
+|       |-- llamaindex_pipeline.py
 |       |-- rag.py
 |       |-- retrieval.py
 |       `-- vector_store.py
@@ -273,6 +277,7 @@ See [docs/interview-prep.md](docs/interview-prep.md) for recruiter explanations,
 - Chroma integration uses explicit replace semantics for predictable demo behavior.
 - Evaluation CLI generates Markdown and JSON reports from a JSONL benchmark dataset.
 - Tests cover chunking, document loading, embeddings, retrieval, generation, vector store behavior, and evaluation.
+- A second retrieval backend (`llamaindex_pipeline.py`) implements the same retrieval contract with LlamaIndex instead of LangChain, sharing the embedding layer via an adapter. See [docs/llamaindex-comparison.md](docs/llamaindex-comparison.md).
 
 ## Deployment
 
