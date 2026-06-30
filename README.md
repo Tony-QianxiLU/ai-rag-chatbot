@@ -26,7 +26,7 @@ This project is part of my AI engineering portfolio. It is designed to demonstra
 - Enable OpenAI embeddings when `OPENAI_API_KEY` is configured.
 - Generate grounded answers with source citations.
 - Fall back to template answers when no paid API key is available.
-- Evaluate retrieval quality with simple pass-rate helpers.
+- Evaluate RAG quality with a benchmark dataset, generated reports, and CI checks.
 - Run quality checks with Ruff, pytest, and GitHub Actions.
 - Deploy publicly on Streamlit Community Cloud.
 
@@ -89,6 +89,8 @@ ai-rag-chatbot/
 |-- .github/
 |   |-- ISSUE_TEMPLATE/
 |   `-- workflows/
+|-- data/
+|   `-- evaluation_cases.jsonl
 |-- docs/
 |   |-- demo/
 |   |-- images/
@@ -104,12 +106,15 @@ ai-rag-chatbot/
 |       |-- demo_data.py
 |       |-- document_loader.py
 |       |-- embeddings.py
+|       |-- evaluate.py
 |       |-- evaluation.py
 |       |-- generation.py
 |       |-- rag.py
 |       |-- retrieval.py
 |       `-- vector_store.py
 |-- tests/
+|-- reports/
+|   `-- evaluation-report.md
 |-- .env.example
 |-- pyproject.toml
 |-- uv.lock
@@ -163,6 +168,17 @@ Run quality checks:
 uv run ruff check .
 uv run pytest
 ```
+
+Run the RAG evaluation suite:
+
+```bash
+PYTHONPATH=src uv run rag-evaluate
+```
+
+This writes:
+
+- `reports/evaluation-report.md`
+- `reports/evaluation-report.json`
 
 ## Screenshots
 
@@ -218,6 +234,27 @@ Citation:
 sample-rag-brief.txt | sample-rag-brief.txt:0 | score 4
 ```
 
+## Evaluation
+
+This project includes an offline RAG benchmark that can run without an OpenAI API key. It evaluates whether the app retrieves the expected source, returns citations, keeps the answer grounded in expected terms, and reports latency.
+
+Current benchmark report:
+
+| Metric | Result |
+| --- | ---: |
+| Retrieval accuracy | 100% |
+| Citation coverage | 100% |
+| Groundedness rate | 100% |
+| Overall pass rate | 100% |
+
+Run it locally:
+
+```bash
+PYTHONPATH=src uv run rag-evaluate
+```
+
+See [docs/evaluation.md](docs/evaluation.md) and [reports/evaluation-report.md](reports/evaluation-report.md).
+
 ## Technical Highlights
 
 - Clean separation between UI, ingestion, chunking, retrieval, generation, and evaluation.
@@ -225,6 +262,7 @@ sample-rag-brief.txt | sample-rag-brief.txt:0 | score 4
 - Optional OpenAI components can be enabled through environment variables.
 - Source references are returned as structured dataclasses, not loose strings.
 - Chroma integration uses explicit replace semantics for predictable demo behavior.
+- Evaluation CLI generates Markdown and JSON reports from a JSONL benchmark dataset.
 - Tests cover chunking, document loading, embeddings, retrieval, generation, vector store behavior, and evaluation.
 
 ## Deployment
@@ -248,8 +286,8 @@ EMBEDDING_MODEL = "text-embedding-3-small"
 
 ## Future Improvements
 
-- Add a curated retrieval evaluation dataset.
-- Track precision, recall, citation quality, latency, and cost.
+- Add a larger retrieval evaluation dataset with harder negative cases.
+- Track precision, recall, citation quality, latency, and cost over time.
 - Add persistent document collections with user sessions.
 - Add hybrid retrieval and reranking.
 - Add observability dashboards for retrieval and generation failures.

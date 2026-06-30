@@ -1,0 +1,4 @@
+{"id":"rag-retrieval","question":"How does retrieval augmented generation ground answers?","expected_source":"rag-architecture.txt","expected_answer_terms":["retrieval augmented generation","citations"],"expected_citation_count":1}
+{"id":"agent-boundary","question":"What should a transparent AI agent show?","expected_source":"agent-design.txt","expected_answer_terms":["plan","tool calls","memory"],"expected_citation_count":1}
+{"id":"deployment-readiness","question":"What does a production AI app need before deployment?","expected_source":"deployment-ops.txt","expected_answer_terms":["deployment documentation","CI checks","release notes"],"expected_citation_count":1}
+{"id":"evaluation-metrics","question":"Which metrics help evaluate a RAG system?","expected_source":"evaluation-quality.txt","expected_answer_terms":["retrieval accuracy","citation coverage","groundedness","latency"],"expected_citation_count":1}

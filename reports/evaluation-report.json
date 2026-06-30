@@ -1,0 +1,76 @@
+{
+  "summary": {
+    "total_cases": 4,
+    "passed_cases": 4,
+    "retrieval_accuracy": 1.0,
+    "citation_coverage": 1.0,
+    "groundedness_rate": 1.0,
+    "overall_pass_rate": 1.0,
+    "average_latency_ms": 0.037823047023266554
+  },
+  "results": [
+    {
+      "id": "rag-retrieval",
+      "question": "How does retrieval augmented generation ground answers?",
+      "expected_source": "rag-architecture.txt",
+      "retrieved_sources": [
+        "rag-architecture.txt",
+        "evaluation-quality.txt"
+      ],
+      "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: How does retrieval augmented generation ground answers?\n\nTop context: Retrieval augmented generation combines search with language generation. The system chunks source documents, retrieves relevant context for a question, and uses that context to ground the answer with citations.",
+      "latency_ms": 0.05604187026619911,
+      "retrieval_passed": true,
+      "citation_passed": true,
+      "groundedness_passed": true,
+      "passed": true
+    },
+    {
+      "id": "agent-boundary",
+      "question": "What should a transparent AI agent show?",
+      "expected_source": "agent-design.txt",
+      "retrieved_sources": [
+        "agent-design.txt",
+        "rag-architecture.txt",
+        "deployment-ops.txt"
+      ],
+      "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: What should a transparent AI agent show?\n\nTop context: AI agents use planning, tools, and execution traces to complete structured tasks. A transparent agent should show its plan, tool calls, tool results, and memory.",
+      "latency_ms": 0.035708071663975716,
+      "retrieval_passed": true,
+      "citation_passed": true,
+      "groundedness_passed": true,
+      "passed": true
+    },
+    {
+      "id": "deployment-readiness",
+      "question": "What does a production AI app need before deployment?",
+      "expected_source": "deployment-ops.txt",
+      "retrieved_sources": [
+        "deployment-ops.txt",
+        "agent-design.txt",
+        "rag-architecture.txt"
+      ],
+      "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: What does a production AI app need before deployment?\n\nTop context: Production AI applications need deployment documentation, environment variables, CI checks, release notes, and rollback-friendly workflows.",
+      "latency_ms": 0.03095809370279312,
+      "retrieval_passed": true,
+      "citation_passed": true,
+      "groundedness_passed": true,
+      "passed": true
+    },
+    {
+      "id": "evaluation-metrics",
+      "question": "Which metrics help evaluate a RAG system?",
+      "expected_source": "evaluation-quality.txt",
+      "retrieved_sources": [
+        "evaluation-quality.txt",
+        "rag-architecture.txt",
+        "agent-design.txt"
+      ],
+      "answer": "Relevant context was retrieved from the uploaded documents. Configure OPENAI_API_KEY to enable LLM-generated answers.\n\nQuestion: Which metrics help evaluate a RAG system?\n\nTop context: RAG evaluation tracks retrieval accuracy, citation coverage, groundedness, and latency. These metrics help teams detect regressions when prompts or models change.",
+      "latency_ms": 0.028584152460098267,
+      "retrieval_passed": true,
+      "citation_passed": true,
+      "groundedness_passed": true,
+      "passed": true
+    }
+  ]
+}

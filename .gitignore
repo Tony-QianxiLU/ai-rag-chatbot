@@ -12,10 +12,11 @@ __pycache__/
 
 # Local data and vector stores
 data/
+!data/
+!data/evaluation_cases.jsonl
 chroma_db/
 
 # OS/editor files
 .DS_Store
 .idea/
 .vscode/
-
