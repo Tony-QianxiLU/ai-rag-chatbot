@@ -23,12 +23,7 @@ class RagResponse:
 
 
 class RagPipeline:
-    """Minimal RAG pipeline interface for the first prototype.
-
-    The implementation is intentionally simple in phase 1. Later milestones will
-    replace this placeholder with document loading, chunking, embeddings, vector
-    retrieval, and LLM response generation.
-    """
+    """Orchestrates document chunking, retrieval, generation, and citations."""
 
     def answer(
         self,
@@ -66,8 +61,7 @@ class RagPipeline:
             )
 
         if vector_store:
-            vector_store.reset()
-            vector_store.add_chunks(available_chunks)
+            vector_store.replace_chunks(available_chunks)
             retrieved_chunks = vector_store.retrieve(normalized_question)
         else:
             retrieved_chunks = KeywordRetriever(available_chunks).retrieve(normalized_question)

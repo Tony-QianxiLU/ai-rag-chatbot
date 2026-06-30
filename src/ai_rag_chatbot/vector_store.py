@@ -24,6 +24,10 @@ class ChromaVectorStore:
         self._client.delete_collection(self._collection.name)
         self._collection = self._client.get_or_create_collection(name=self._collection.name)
 
+    def replace_chunks(self, chunks: list[TextChunk]) -> None:
+        self.reset()
+        self.add_chunks(chunks)
+
     def add_chunks(self, chunks: list[TextChunk]) -> None:
         if not chunks:
             return
@@ -74,4 +78,3 @@ class ChromaVectorStore:
             retrieved.append(RetrievedChunk(chunk=chunk, score=score))
 
         return retrieved
-

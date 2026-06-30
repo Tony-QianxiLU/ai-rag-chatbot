@@ -1,11 +1,12 @@
 import streamlit as st
 
 from ai_rag_chatbot.chunking import chunk_documents
+from ai_rag_chatbot.config import settings
+from ai_rag_chatbot.demo_data import SAMPLE_DOCUMENT, SAMPLE_QUESTION
 from ai_rag_chatbot.document_loader import LoadedDocument, load_document
 from ai_rag_chatbot.embeddings import HashEmbeddingProvider, OpenAIEmbeddingProvider
 from ai_rag_chatbot.generation import OpenAIAnswerGenerator, TemplateAnswerGenerator
 from ai_rag_chatbot.rag import RagPipeline
-from ai_rag_chatbot.config import settings
 from ai_rag_chatbot.vector_store import ChromaVectorStore
 
 
@@ -16,14 +17,14 @@ st.caption("A portfolio project for document-based retrieval-augmented generatio
 
 with st.sidebar:
     st.header("Project Status")
-    st.write("Phase 7: portfolio-ready RAG prototype.")
-    st.write("Next: public deployment and demo walkthrough.")
+    st.write("Portfolio-ready RAG app with public deployment.")
     chunk_size = st.slider("Chunk size", min_value=50, max_value=500, value=200, step=50)
     overlap = st.slider("Chunk overlap", min_value=0, max_value=100, value=40, step=10)
     retrieval_mode = st.radio(
         "Retrieval mode",
         options=["Keyword", "Local vector", "OpenAI vector"],
     )
+    use_sample_document = st.checkbox("Load sample document", value=True)
 
 uploaded_files = st.file_uploader(
     "Upload documents",
@@ -32,6 +33,9 @@ uploaded_files = st.file_uploader(
 )
 
 documents: list[LoadedDocument] = []
+if use_sample_document:
+    documents.append(SAMPLE_DOCUMENT)
+
 for uploaded_file in uploaded_files:
     try:
         documents.append(load_document(uploaded_file.name, uploaded_file.getvalue()))
@@ -56,7 +60,10 @@ if chunks:
         st.write(f"Words: {first_chunk.word_count}")
         st.text(first_chunk.text[:2_000])
 
-question = st.text_input("Ask a question about your documents")
+question = st.text_input(
+    "Ask a question about your documents",
+    value=SAMPLE_QUESTION if use_sample_document else "",
+)
 
 pipeline = RagPipeline()
 
@@ -80,23 +87,27 @@ answer_generator = (
     else TemplateAnswerGenerator()
 )
 
-response = pipeline.answer(
-    question,
-    documents=documents,
-    chunks=chunks,
-    vector_store=vector_store,
-    answer_generator=answer_generator,
-)
+try:
+    response = pipeline.answer(
+        question,
+        documents=documents,
+        chunks=chunks,
+        vector_store=vector_store,
+        answer_generator=answer_generator,
+    )
+except Exception as error:
+    st.subheader("Answer")
+    st.error(f"RAG pipeline failed: {error}")
+else:
+    st.subheader("Answer")
+    st.write(response.answer)
 
-st.subheader("Answer")
-st.write(response.answer)
-
-if response.citations:
-    st.subheader("Citations")
-    for citation in response.citations:
-        with st.expander(f"{citation.source} | {citation.chunk_id} | score {citation.score}"):
-            st.write(citation.preview)
-elif response.sources:
-    st.subheader("Sources")
-    for source in response.sources:
-        st.write(f"- {source}")
+    if response.citations:
+        st.subheader("Citations")
+        for citation in response.citations:
+            with st.expander(f"{citation.source} | {citation.chunk_id} | score {citation.score}"):
+                st.write(citation.preview)
+    elif response.sources:
+        st.subheader("Sources")
+        for source in response.sources:
+            st.write(f"- {source}")

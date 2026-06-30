@@ -1,9 +1,13 @@
 [project]
 name = "ai-rag-chatbot"
-version = "0.1.0"
+version = "0.2.0"
 description = "A document-based RAG chatbot built with Python, Streamlit, LangChain, OpenAI, and Chroma."
 readme = "README.md"
 requires-python = ">=3.12"
+license = "MIT"
+authors = [
+    { name = "Qianxi Lu" },
+]
 dependencies = [
     "chromadb>=1.1.0",
     "langchain>=1.0.0",

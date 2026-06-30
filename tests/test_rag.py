@@ -1,4 +1,5 @@
 from ai_rag_chatbot.document_loader import LoadedDocument
+from ai_rag_chatbot.demo_data import SAMPLE_DOCUMENT, SAMPLE_QUESTION
 from ai_rag_chatbot.rag import RagPipeline
 
 
@@ -39,3 +40,10 @@ def test_question_with_no_matching_chunks_returns_no_match_message() -> None:
     assert "no matching chunk" in response.answer
     assert response.sources == []
     assert response.citations == []
+
+
+def test_sample_document_answers_default_question() -> None:
+    response = RagPipeline().answer(SAMPLE_QUESTION, documents=[SAMPLE_DOCUMENT])
+
+    assert response.sources == ["sample-rag-brief.txt"]
+    assert response.citations[0].source == "sample-rag-brief.txt"

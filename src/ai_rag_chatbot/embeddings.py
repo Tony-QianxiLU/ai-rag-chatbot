@@ -7,10 +7,10 @@ from langchain_openai import OpenAIEmbeddings
 
 class EmbeddingProvider(Protocol):
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
-        pass
+        ...
 
     def embed_query(self, text: str) -> list[float]:
-        pass
+        ...
 
 
 class HashEmbeddingProvider:
@@ -50,4 +50,3 @@ class OpenAIEmbeddingProvider:
 
     def embed_query(self, text: str) -> list[float]:
         return self._embeddings.embed_query(text)
-

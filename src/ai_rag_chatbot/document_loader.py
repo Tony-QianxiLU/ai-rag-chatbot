@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from io import BytesIO
 
 from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 
 
 @dataclass(frozen=True)
@@ -20,13 +21,23 @@ def load_text_file(filename: str, content: bytes) -> LoadedDocument:
 
 
 def load_pdf_file(filename: str, content: bytes) -> LoadedDocument:
-    reader = PdfReader(BytesIO(content))
+    try:
+        reader = PdfReader(BytesIO(content))
+    except (PdfReadError, ValueError) as error:
+        raise ValueError("Could not read PDF content") from error
+
     pages = [page.extract_text() or "" for page in reader.pages]
     text = "\n\n".join(page.strip() for page in pages if page.strip())
     return LoadedDocument(filename=filename, text=text)
 
 
 def load_document(filename: str, content: bytes) -> LoadedDocument:
+    if not filename.strip():
+        raise ValueError("Filename is required")
+
+    if not content:
+        raise ValueError("Uploaded file is empty")
+
     lower_name = filename.lower()
 
     if lower_name.endswith(".txt"):

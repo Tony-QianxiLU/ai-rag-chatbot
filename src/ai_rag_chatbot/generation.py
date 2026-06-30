@@ -7,7 +7,7 @@ from ai_rag_chatbot.retrieval import RetrievedChunk
 
 class AnswerGenerator(Protocol):
     def generate(self, question: str, retrieved_chunks: list[RetrievedChunk]) -> str:
-        pass
+        ...
 
 
 class TemplateAnswerGenerator:
@@ -42,4 +42,3 @@ class OpenAIAnswerGenerator:
         )
         response = self._model.invoke(prompt)
         return str(response.content)
-

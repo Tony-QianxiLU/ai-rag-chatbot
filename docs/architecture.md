@@ -2,38 +2,63 @@
 
 ## Goal
 
-The goal of this project is to build a document-based chatbot that can answer questions using retrieved context from uploaded documents.
+AI RAG Chatbot is a document-grounded question-answering application. It is built to be simple enough to explain in interviews and structured enough to extend toward production RAG systems.
 
-## Current Phase
+## System Diagram
 
-The current phase adds document upload, text extraction, chunking, retrieval, vector storage, and answer generation:
+```mermaid
+flowchart TD
+    user["User"] --> ui["Streamlit UI"]
+    ui --> loader["Document Loader"]
+    loader --> chunker["Chunking"]
+    chunker --> keyword["Keyword Retriever"]
+    chunker --> vector["Chroma Vector Store"]
+    vector --> embeddings["Embedding Provider"]
+    keyword --> generator["Answer Generator"]
+    embeddings --> generator
+    generator --> citations["Answer + Citations"]
+```
 
-- Streamlit UI
-- RAG pipeline interface
-- Settings management
-- `.txt` text extraction
-- `.pdf` text extraction
-- Document preview
-- Configurable chunk size and overlap
-- Keyword retrieval over chunks
-- Chroma vector storage
-- Local hash embeddings for development
-- Optional OpenAI embeddings for production-style retrieval
-- Offline template answer generation
-- Optional OpenAI grounded answer generation
-- Source citations with chunk metadata
-- Retrieval evaluation helpers
-- CI and deployment documentation
-- Tests
-- Documentation
+## RAG Pipeline
 
-## Target RAG Flow
+```mermaid
+sequenceDiagram
+    participant User
+    participant Streamlit
+    participant Retriever
+    participant Embedding
+    participant VectorDB as Vector Database
+    participant LLM
+    participant Answer
 
-1. Upload documents.
-2. Extract text.
-3. Split text into chunks.
-4. Generate embeddings for each chunk.
-5. Store embeddings in Chroma.
-6. Retrieve relevant chunks for a user question.
-7. Generate an answer with an OpenAI model.
-8. Return answer and source references.
+    User->>Streamlit: Upload documents and ask a question
+    Streamlit->>Retriever: Send chunks and query
+    Retriever->>Embedding: Embed query and chunks
+    Embedding->>VectorDB: Store and search vectors
+    VectorDB->>Retriever: Return relevant chunks
+    Retriever->>LLM: Provide grounded context
+    LLM->>Answer: Generate answer with citations
+    Answer->>User: Return response
+```
+
+## Components
+
+| Component | Responsibility |
+| --- | --- |
+| `app.py` | Streamlit interface and user workflow. |
+| `document_loader.py` | `.txt` and `.pdf` extraction with input validation. |
+| `chunking.py` | Word-based chunking with overlap. |
+| `retrieval.py` | Deterministic keyword retrieval. |
+| `embeddings.py` | Local hash embeddings and optional OpenAI embeddings. |
+| `vector_store.py` | Chroma persistence and vector retrieval. |
+| `generation.py` | Template fallback and optional OpenAI answer generation. |
+| `rag.py` | Pipeline orchestration and structured response objects. |
+| `evaluation.py` | Retrieval evaluation helpers. |
+
+## Design Decisions
+
+- Deterministic local fallbacks keep the project demoable without paid API keys.
+- OpenAI integrations are optional and configured only through environment variables.
+- Citations are first-class response objects so the UI can show source, chunk id, score, and preview.
+- Vector retrieval uses replace semantics in the demo app to avoid stale uploaded-document state.
+- Tests focus on deterministic behavior, not external API calls.
