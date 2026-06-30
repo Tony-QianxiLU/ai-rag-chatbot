@@ -21,6 +21,7 @@ The current phase adds document upload, text extraction, chunking, retrieval, ve
 - Optional OpenAI embeddings for production-style retrieval
 - Offline template answer generation
 - Optional OpenAI grounded answer generation
+- Source citations with chunk metadata
 - Tests
 - Documentation
 

@@ -24,6 +24,7 @@ The current version focuses on:
 - Grounded answer generation interface
 - Offline template answers when no API key is configured
 - Optional OpenAI answer generation
+- Source citations with chunk id, score, and preview
 - Tests for core project behavior
 - Clear roadmap toward production-quality RAG
 
@@ -123,7 +124,7 @@ Never commit real API keys.
 - [x] Add Chroma vector storage
 - [x] Add answer generation interface
 - [x] Add optional OpenAI response generation
-- [ ] Add source citations
+- [x] Add source citations
 - [ ] Add evaluation examples
 - [ ] Add deployment
 

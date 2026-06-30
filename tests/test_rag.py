@@ -7,6 +7,7 @@ def test_empty_question_returns_getting_started_message() -> None:
 
     assert "Ask a question" in response.answer
     assert response.sources == []
+    assert response.citations == []
 
 
 def test_question_returns_phase_one_response() -> None:
@@ -17,6 +18,8 @@ def test_question_returns_phase_one_response() -> None:
 
     assert "Relevant context was retrieved" in response.answer
     assert response.sources == ["notes.txt"]
+    assert response.citations[0].source == "notes.txt"
+    assert response.citations[0].chunk_id == "notes.txt:0"
 
 
 def test_question_without_documents_requests_upload() -> None:
@@ -24,6 +27,7 @@ def test_question_without_documents_requests_upload() -> None:
 
     assert "Upload at least one document" in response.answer
     assert response.sources == []
+    assert response.citations == []
 
 
 def test_question_with_no_matching_chunks_returns_no_match_message() -> None:
@@ -34,3 +38,4 @@ def test_question_with_no_matching_chunks_returns_no_match_message() -> None:
 
     assert "no matching chunk" in response.answer
     assert response.sources == []
+    assert response.citations == []

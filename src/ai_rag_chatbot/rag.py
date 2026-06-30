@@ -8,9 +8,18 @@ from ai_rag_chatbot.vector_store import ChromaVectorStore
 
 
 @dataclass(frozen=True)
+class SourceReference:
+    source: str
+    chunk_id: str
+    score: int
+    preview: str
+
+
+@dataclass(frozen=True)
 class RagResponse:
     answer: str
     sources: list[str]
+    citations: list[SourceReference]
 
 
 class RagPipeline:
@@ -34,6 +43,7 @@ class RagPipeline:
             return RagResponse(
                 answer="Ask a question about your documents to get started.",
                 sources=[],
+                citations=[],
             )
 
         loaded_documents = documents or []
@@ -44,6 +54,7 @@ class RagPipeline:
                     "the extracted text for chunking and retrieval."
                 ),
                 sources=[],
+                citations=[],
             )
 
         available_chunks = chunks or chunk_documents(loaded_documents)
@@ -51,6 +62,7 @@ class RagPipeline:
             return RagResponse(
                 answer="The uploaded documents did not contain extractable text.",
                 sources=[],
+                citations=[],
             )
 
         if vector_store:
@@ -66,11 +78,22 @@ class RagPipeline:
                     "but no matching chunk was found for this question."
                 ),
                 sources=[],
+                citations=[],
             )
 
         source_names = sorted({result.chunk.source for result in retrieved_chunks})
+        citations = [
+            SourceReference(
+                source=result.chunk.source,
+                chunk_id=result.chunk.id,
+                score=result.score,
+                preview=result.chunk.text[:240],
+            )
+            for result in retrieved_chunks
+        ]
         generator = answer_generator or TemplateAnswerGenerator()
         return RagResponse(
             answer=generator.generate(normalized_question, retrieved_chunks),
             sources=source_names,
+            citations=citations,
         )

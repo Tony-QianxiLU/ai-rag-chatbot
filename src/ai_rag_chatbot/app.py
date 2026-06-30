@@ -91,7 +91,12 @@ response = pipeline.answer(
 st.subheader("Answer")
 st.write(response.answer)
 
-if response.sources:
+if response.citations:
+    st.subheader("Citations")
+    for citation in response.citations:
+        with st.expander(f"{citation.source} | {citation.chunk_id} | score {citation.score}"):
+            st.write(citation.preview)
+elif response.sources:
     st.subheader("Sources")
     for source in response.sources:
         st.write(f"- {source}")
