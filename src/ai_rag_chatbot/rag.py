@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from ai_rag_chatbot.chunking import TextChunk, chunk_documents
 from ai_rag_chatbot.document_loader import LoadedDocument
+from ai_rag_chatbot.generation import AnswerGenerator, TemplateAnswerGenerator
 from ai_rag_chatbot.retrieval import KeywordRetriever
 from ai_rag_chatbot.vector_store import ChromaVectorStore
 
@@ -26,6 +27,7 @@ class RagPipeline:
         documents: list[LoadedDocument] | None = None,
         chunks: list[TextChunk] | None = None,
         vector_store: ChromaVectorStore | None = None,
+        answer_generator: AnswerGenerator | None = None,
     ) -> RagResponse:
         normalized_question = question.strip()
         if not normalized_question:
@@ -66,13 +68,9 @@ class RagPipeline:
                 sources=[],
             )
 
-        context_preview = retrieved_chunks[0].chunk.text[:500]
         source_names = sorted({result.chunk.source for result in retrieved_chunks})
+        generator = answer_generator or TemplateAnswerGenerator()
         return RagResponse(
-            answer=(
-                "Retrieved relevant context from the uploaded documents. "
-                "The next milestone will send this context to an LLM for grounded answer generation.\n\n"
-                f"Top context preview: {context_preview}"
-            ),
+            answer=generator.generate(normalized_question, retrieved_chunks),
             sources=source_names,
         )

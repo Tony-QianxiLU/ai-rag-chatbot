@@ -3,6 +3,7 @@ import streamlit as st
 from ai_rag_chatbot.chunking import chunk_documents
 from ai_rag_chatbot.document_loader import LoadedDocument, load_document
 from ai_rag_chatbot.embeddings import HashEmbeddingProvider, OpenAIEmbeddingProvider
+from ai_rag_chatbot.generation import OpenAIAnswerGenerator, TemplateAnswerGenerator
 from ai_rag_chatbot.rag import RagPipeline
 from ai_rag_chatbot.config import settings
 from ai_rag_chatbot.vector_store import ChromaVectorStore
@@ -15,8 +16,8 @@ st.caption("A portfolio project for document-based retrieval-augmented generatio
 
 with st.sidebar:
     st.header("Project Status")
-    st.write("Phase 4: keyword retrieval over document chunks.")
-    st.write("Next: OpenAI responses.")
+    st.write("Phase 6: grounded answer generation.")
+    st.write("Next: evaluation, citations, and deployment.")
     chunk_size = st.slider("Chunk size", min_value=50, max_value=500, value=200, step=50)
     overlap = st.slider("Chunk overlap", min_value=0, max_value=100, value=40, step=10)
     retrieval_mode = st.radio(
@@ -73,11 +74,18 @@ if chunks and retrieval_mode in {"Local vector", "OpenAI vector"}:
         embedding_provider=embedding_provider,
     )
 
+answer_generator = (
+    OpenAIAnswerGenerator(model=settings.openai_model)
+    if settings.openai_api_key
+    else TemplateAnswerGenerator()
+)
+
 response = pipeline.answer(
     question,
     documents=documents,
     chunks=chunks,
     vector_store=vector_store,
+    answer_generator=answer_generator,
 )
 
 st.subheader("Answer")

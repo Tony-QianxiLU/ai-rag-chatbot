@@ -6,7 +6,7 @@ This repository is part of my AI engineering portfolio. The goal is to build the
 
 ## Current Status
 
-Phase 5: vector storage and retrieval.
+Phase 6: grounded answer generation.
 
 The current version focuses on:
 
@@ -21,6 +21,9 @@ The current version focuses on:
 - Chroma vector storage
 - Local deterministic embeddings for development
 - Optional OpenAI embeddings through environment configuration
+- Grounded answer generation interface
+- Offline template answers when no API key is configured
+- Optional OpenAI answer generation
 - Tests for core project behavior
 - Clear roadmap toward production-quality RAG
 
@@ -118,7 +121,8 @@ Never commit real API keys.
 - [x] Add local retrieval over chunks
 - [x] Add embeddings interface
 - [x] Add Chroma vector storage
-- [ ] Add OpenAI response generation
+- [x] Add answer generation interface
+- [x] Add optional OpenAI response generation
 - [ ] Add source citations
 - [ ] Add evaluation examples
 - [ ] Add deployment

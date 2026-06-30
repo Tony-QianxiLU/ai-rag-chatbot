@@ -15,7 +15,7 @@ def test_question_returns_phase_one_response() -> None:
         documents=[LoadedDocument(filename="notes.txt", text="RAG means retrieval.")],
     )
 
-    assert "Retrieved relevant context" in response.answer
+    assert "Relevant context was retrieved" in response.answer
     assert response.sources == ["notes.txt"]
 
 
