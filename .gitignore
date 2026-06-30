@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Local data and vector stores
+data/
+chroma_db/
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
