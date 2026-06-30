@@ -23,6 +23,7 @@ The current phase adds document upload, text extraction, chunking, retrieval, ve
 - Optional OpenAI grounded answer generation
 - Source citations with chunk metadata
 - Retrieval evaluation helpers
+- CI and deployment documentation
 - Tests
 - Documentation
 

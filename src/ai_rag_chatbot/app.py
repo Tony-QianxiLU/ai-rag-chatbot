@@ -16,8 +16,8 @@ st.caption("A portfolio project for document-based retrieval-augmented generatio
 
 with st.sidebar:
     st.header("Project Status")
-    st.write("Phase 6: grounded answer generation.")
-    st.write("Next: evaluation, citations, and deployment.")
+    st.write("Phase 7: portfolio-ready RAG prototype.")
+    st.write("Next: public deployment and demo walkthrough.")
     chunk_size = st.slider("Chunk size", min_value=50, max_value=500, value=200, step=50)
     overlap = st.slider("Chunk overlap", min_value=0, max_value=100, value=40, step=10)
     retrieval_mode = st.radio(
