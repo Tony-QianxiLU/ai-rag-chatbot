@@ -1,5 +1,9 @@
 # AI RAG Chatbot
 
+[![CI](https://github.com/Tony-QianxiLU/ai-rag-chatbot/actions/workflows/ci.yml/badge.svg)](https://github.com/Tony-QianxiLU/ai-rag-chatbot/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Tony-QianxiLU/ai-rag-chatbot)](https://github.com/Tony-QianxiLU/ai-rag-chatbot/releases)
+[![Python](https://img.shields.io/badge/python-3.12-blue)](https://www.python.org/)
+
 A document-based chatbot that will use embeddings, vector search, and LLM responses to answer questions from uploaded documents.
 
 This repository is part of my AI engineering portfolio. The goal is to build the project incrementally, with clear documentation, professional Git workflow, and code that I can explain in interviews.
