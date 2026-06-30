@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 
+from ai_rag_chatbot.chunking import TextChunk, chunk_documents
 from ai_rag_chatbot.document_loader import LoadedDocument
+from ai_rag_chatbot.retrieval import KeywordRetriever
 
 
 @dataclass(frozen=True)
@@ -17,7 +19,12 @@ class RagPipeline:
     retrieval, and LLM response generation.
     """
 
-    def answer(self, question: str, documents: list[LoadedDocument] | None = None) -> RagResponse:
+    def answer(
+        self,
+        question: str,
+        documents: list[LoadedDocument] | None = None,
+        chunks: list[TextChunk] | None = None,
+    ) -> RagResponse:
         normalized_question = question.strip()
         if not normalized_question:
             return RagResponse(
@@ -35,11 +42,30 @@ class RagPipeline:
                 sources=[],
             )
 
-        source_names = [document.filename for document in loaded_documents]
+        available_chunks = chunks or chunk_documents(loaded_documents)
+        if not available_chunks:
+            return RagResponse(
+                answer="The uploaded documents did not contain extractable text.",
+                sources=[],
+            )
+
+        retrieved_chunks = KeywordRetriever(available_chunks).retrieve(normalized_question)
+        if not retrieved_chunks:
+            return RagResponse(
+                answer=(
+                    f"Documents are loaded and split into {len(available_chunks)} chunks, "
+                    "but no matching chunk was found for this question."
+                ),
+                sources=[],
+            )
+
+        context_preview = retrieved_chunks[0].chunk.text[:500]
+        source_names = sorted({result.chunk.source for result in retrieved_chunks})
         return RagResponse(
             answer=(
-                "Documents are loaded and text extraction is working. The next milestone "
-                "will split the extracted text into chunks before adding embeddings and retrieval."
+                "Retrieved relevant context from the uploaded documents. "
+                "The next milestone will send this context to an LLM for grounded answer generation.\n\n"
+                f"Top context preview: {context_preview}"
             ),
             sources=source_names,
         )

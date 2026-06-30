@@ -6,7 +6,7 @@ The goal of this project is to build a document-based chatbot that can answer qu
 
 ## Current Phase
 
-The current phase adds document upload and text extraction:
+The current phase adds document upload, text extraction, chunking, and keyword retrieval:
 
 - Streamlit UI
 - RAG pipeline interface
@@ -14,6 +14,8 @@ The current phase adds document upload and text extraction:
 - `.txt` text extraction
 - `.pdf` text extraction
 - Document preview
+- Configurable chunk size and overlap
+- Keyword retrieval over chunks
 - Tests
 - Documentation
 

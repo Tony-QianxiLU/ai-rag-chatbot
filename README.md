@@ -6,7 +6,7 @@ This repository is part of my AI engineering portfolio. The goal is to build the
 
 ## Current Status
 
-Phase 2: document upload and text extraction.
+Phase 4: keyword retrieval over document chunks.
 
 The current version focuses on:
 
@@ -16,6 +16,8 @@ The current version focuses on:
 - RAG pipeline interfaces
 - `.txt` and `.pdf` upload support
 - Text extraction and document preview
+- Configurable text chunking with overlap
+- Deterministic keyword retrieval over chunks
 - Tests for core project behavior
 - Clear roadmap toward production-quality RAG
 
@@ -109,7 +111,8 @@ Never commit real API keys.
 - [x] Add Streamlit prototype UI
 - [x] Add testable RAG pipeline placeholder
 - [x] Add document upload and parsing
-- [ ] Add text chunking
+- [x] Add text chunking
+- [x] Add local retrieval over chunks
 - [ ] Add embeddings
 - [ ] Add Chroma vector storage
 - [ ] Add OpenAI response generation

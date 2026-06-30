@@ -15,7 +15,7 @@ def test_question_returns_phase_one_response() -> None:
         documents=[LoadedDocument(filename="notes.txt", text="RAG means retrieval.")],
     )
 
-    assert "text extraction is working" in response.answer
+    assert "Retrieved relevant context" in response.answer
     assert response.sources == ["notes.txt"]
 
 
@@ -23,4 +23,14 @@ def test_question_without_documents_requests_upload() -> None:
     response = RagPipeline().answer("What is RAG?")
 
     assert "Upload at least one document" in response.answer
+    assert response.sources == []
+
+
+def test_question_with_no_matching_chunks_returns_no_match_message() -> None:
+    response = RagPipeline().answer(
+        "What is vector search?",
+        documents=[LoadedDocument(filename="notes.txt", text="Bananas and apples.")],
+    )
+
+    assert "no matching chunk" in response.answer
     assert response.sources == []
