@@ -6,7 +6,7 @@ This repository is part of my AI engineering portfolio. The goal is to build the
 
 ## Current Status
 
-Phase 4: keyword retrieval over document chunks.
+Phase 5: vector storage and retrieval.
 
 The current version focuses on:
 
@@ -18,6 +18,9 @@ The current version focuses on:
 - Text extraction and document preview
 - Configurable text chunking with overlap
 - Deterministic keyword retrieval over chunks
+- Chroma vector storage
+- Local deterministic embeddings for development
+- Optional OpenAI embeddings through environment configuration
 - Tests for core project behavior
 - Clear roadmap toward production-quality RAG
 
@@ -113,8 +116,8 @@ Never commit real API keys.
 - [x] Add document upload and parsing
 - [x] Add text chunking
 - [x] Add local retrieval over chunks
-- [ ] Add embeddings
-- [ ] Add Chroma vector storage
+- [x] Add embeddings interface
+- [x] Add Chroma vector storage
 - [ ] Add OpenAI response generation
 - [ ] Add source citations
 - [ ] Add evaluation examples

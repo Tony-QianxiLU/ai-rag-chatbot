@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from ai_rag_chatbot.chunking import TextChunk, chunk_documents
 from ai_rag_chatbot.document_loader import LoadedDocument
 from ai_rag_chatbot.retrieval import KeywordRetriever
+from ai_rag_chatbot.vector_store import ChromaVectorStore
 
 
 @dataclass(frozen=True)
@@ -24,6 +25,7 @@ class RagPipeline:
         question: str,
         documents: list[LoadedDocument] | None = None,
         chunks: list[TextChunk] | None = None,
+        vector_store: ChromaVectorStore | None = None,
     ) -> RagResponse:
         normalized_question = question.strip()
         if not normalized_question:
@@ -49,7 +51,12 @@ class RagPipeline:
                 sources=[],
             )
 
-        retrieved_chunks = KeywordRetriever(available_chunks).retrieve(normalized_question)
+        if vector_store:
+            vector_store.reset()
+            vector_store.add_chunks(available_chunks)
+            retrieved_chunks = vector_store.retrieve(normalized_question)
+        else:
+            retrieved_chunks = KeywordRetriever(available_chunks).retrieve(normalized_question)
         if not retrieved_chunks:
             return RagResponse(
                 answer=(

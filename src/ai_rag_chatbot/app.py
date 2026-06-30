@@ -2,7 +2,10 @@ import streamlit as st
 
 from ai_rag_chatbot.chunking import chunk_documents
 from ai_rag_chatbot.document_loader import LoadedDocument, load_document
+from ai_rag_chatbot.embeddings import HashEmbeddingProvider, OpenAIEmbeddingProvider
 from ai_rag_chatbot.rag import RagPipeline
+from ai_rag_chatbot.config import settings
+from ai_rag_chatbot.vector_store import ChromaVectorStore
 
 
 st.set_page_config(page_title="AI RAG Chatbot", page_icon="AI", layout="wide")
@@ -13,9 +16,13 @@ st.caption("A portfolio project for document-based retrieval-augmented generatio
 with st.sidebar:
     st.header("Project Status")
     st.write("Phase 4: keyword retrieval over document chunks.")
-    st.write("Next: embeddings, Chroma, and OpenAI responses.")
+    st.write("Next: OpenAI responses.")
     chunk_size = st.slider("Chunk size", min_value=50, max_value=500, value=200, step=50)
     overlap = st.slider("Chunk overlap", min_value=0, max_value=100, value=40, step=10)
+    retrieval_mode = st.radio(
+        "Retrieval mode",
+        options=["Keyword", "Local vector", "OpenAI vector"],
+    )
 
 uploaded_files = st.file_uploader(
     "Upload documents",
@@ -51,7 +58,27 @@ if chunks:
 question = st.text_input("Ask a question about your documents")
 
 pipeline = RagPipeline()
-response = pipeline.answer(question, documents=documents, chunks=chunks)
+
+vector_store = None
+if chunks and retrieval_mode in {"Local vector", "OpenAI vector"}:
+    if retrieval_mode == "OpenAI vector" and settings.openai_api_key:
+        embedding_provider = OpenAIEmbeddingProvider(model=settings.embedding_model)
+    else:
+        embedding_provider = HashEmbeddingProvider()
+        if retrieval_mode == "OpenAI vector":
+            st.warning("OPENAI_API_KEY is not set. Falling back to local hash embeddings.")
+
+    vector_store = ChromaVectorStore(
+        persist_dir=settings.chroma_persist_dir,
+        embedding_provider=embedding_provider,
+    )
+
+response = pipeline.answer(
+    question,
+    documents=documents,
+    chunks=chunks,
+    vector_store=vector_store,
+)
 
 st.subheader("Answer")
 st.write(response.answer)
