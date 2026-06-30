@@ -260,6 +260,10 @@ PYTHONPATH=src uv run rag-evaluate
 
 See [docs/evaluation.md](docs/evaluation.md) and [reports/evaluation-report.md](reports/evaluation-report.md).
 
+## Interview Preparation
+
+See [docs/interview-prep.md](docs/interview-prep.md) for recruiter explanations, technical questions, architecture questions, system design prompts, STAR stories, and follow-up questions.
+
 ## Technical Highlights
 
 - Clean separation between UI, ingestion, chunking, retrieval, generation, and evaluation.
